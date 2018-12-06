@@ -101,10 +101,10 @@
             </div>
         {% endif %}
         <div id="table-div">
-
             <table class="sortable">
                 <tr>
                     <th class="left-aligned">At</th>
+                    <th class="left-aligned">Operation</th>
                     <th class="left-aligned">Tables</th>
                     <th class="right-aligned">Num. Joins</th>
                     <th class="right-aligned">Execution Time (ms)</th>
@@ -119,8 +119,9 @@
                             {% url "silk:request_sql_detail" silk_request.id sql_query.id as the_url %}
                         {% endif %}
                         <td class="left-aligned">
-                            <a href="{{ the_url }}">+{{ sql_query.start_time_relative }}</a>
+                            <a href="{{ the_url }}">&nbsp;+&nbsp;</a> {{ sql_query.start_time_relative }}
                         </td>
+                        <td class="left-aligned">{{ sql_query.operation|upper  }} </td>
                         <td class="left-aligned">{{ sql_query.tables_involved|join:", " }}</td>
                         <td class="right-aligned">{{ sql_query.num_joins }}</td>
                         <td class="right-aligned">{{ sql_query.time_taken | floatformat:6 }}</td>

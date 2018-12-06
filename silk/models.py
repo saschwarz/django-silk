@@ -256,6 +256,11 @@ class SQLQuery(models.Model):
     def num_joins(self):
         return self.query.lower().count('join ')
 
+    # TODO: Surely a better way to handle this? May return false positives
+    @property
+    def operation(self):
+        return self.query.lower().split()[0]
+
     @property
     def tables_involved(self):
         """
