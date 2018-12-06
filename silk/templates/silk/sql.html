@@ -110,17 +110,19 @@
                     <th class="right-aligned">Execution Time (ms)</th>
                 </tr>
                 {% for sql_query in items %}
-                    <!-- TODO: Pretty grimy... -->
-                    <tr class="data-row" onclick="window.location=' \
-                       {% if profile and silk_request %}\
-                           {% url "silk:request_and_profile_sql_detail" silk_request.id profile.id sql_query.id %}\
-                       {% elif profile %}\
-                           {% url "silk:profile_sql_detail" profile.id sql_query.id %}\
-                       {% elif silk_request %}\
-                           {% url "silk:request_sql_detail" silk_request.id sql_query.id %}\
-                       {% endif %}\
-                        ';">
-                        <td class="left-aligned">+{{ sql_query.start_time_relative }}</td>
+                    <tr class="data-row">
+                        <td class="left-aligned">
+                            <a href='\
+                            {% if profile and silk_request %}\
+                                {% url "silk:request_and_profile_sql_detail" silk_request.id profile.id sql_query.id %}\
+                            {% elif profile %}\
+                                {% url "silk:profile_sql_detail" profile.id sql_query.id %}\
+                            {% elif silk_request %}\
+                                {% url "silk:request_sql_detail" silk_request.id sql_query.id %}\
+                            {% endif %}\
+                             '>+{{ sql_query.start_time_relative }}
+                            </a>
+                        </td>
                         <td class="left-aligned">{{ sql_query.tables_involved|join:", " }}</td>
                         <td class="right-aligned">{{ sql_query.num_joins }}</td>
                         <td class="right-aligned">{{ sql_query.time_taken | floatformat:6 }}</td>
